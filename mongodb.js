@@ -16,9 +16,52 @@ MongoClient.connect(connectionURL, { useUnifiedTopology: true }, (error, client)
     // The database is created automatically and we get a reference.
     const db = client.db(databaseName);
 
-    db.collection("users").insertOne({
-        name: "Gregory",
-        age: 32
+    // // insertOne is asynchronous, we insert just one document
+    // db.collection("users").insertOne({
+    //     name: "Gregory",
+    //     age: 32
+    // }, (error, result) => {
+    //     if (error) {
+    //         return console.log("Unable to insert user.");
+    //     }
+    //     // ops --> array of documents
+    //     console.log(result.ops);
+    // });
+
+    // db.collection("users").insertMany([
+    //     {
+    //         name: "Jen",
+    //         age: 28
+    //     },
+    //     {
+    //         name: "Gunter",
+    //         age: 27
+    //     }
+    // ], (error, result) => {
+    //     if (error) {
+    //         return console.log("Unable to insert documents!");
+    //     }
+    //     console.log(result.ops);
+    // });
+
+    db.collection("tasks").insertMany([
+        {
+            description: "Clean the house",
+            completed: true
+        },
+        {
+            description: "Grocery shopping",
+            completed: false,
+        },
+        {
+            description: "Laundry",
+            completed: false
+        }
+    ], (error, result) => {
+        if (error) {
+            return ("Tasks were not inserted successfully...");
+        }
+        console.log(result.ops);
     });
 });
 
