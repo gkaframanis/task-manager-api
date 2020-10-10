@@ -13,35 +13,37 @@ MongoClient.connect(connectionURL, { useUnifiedTopology: true }, (error, client)
 
     const db = client.db(databaseName);
 
-    // Find an indivindual document (not finding one returns null | if there are multiple documents returns the first one back)
+    // db.collection("users").updateOne({
+    //     _id: new ObjectID("5f817a6ea7c97f3430624352")
+    // },
+    // {
+    //     // $set: {
+    //     //     name: "Maria"
+    //     // }
+    //     $inc: {
+    //         age: 1
+    //     }
+    // }
+    // ).then((result) => {
+    //     console.log(result.modifiedCount);
+    // }).catch((error) => {
+    //     console.log(error);
+    // });
 
-    db.collection("users").findOne({ _id: new ObjectID("5f817f5864bffe47d824febf") }, (error, user) => {
-        if (error) {
-            return console.log("Unable to fetch the user...");
+    db.collection("tasks").updateMany(
+        {
+            completed: false
+        },
+        { 
+            $set: 
+                { 
+                    completed: true
+                } 
         }
-
-        console.log(user);
-    });
-    
-    // We get back a cursor, not a callback function
-    db.collection("users").find({ age: 32 }).toArray((error, users) => {
-        console.log(users);
-    });
-
-    // We get back a cursor, not a callback function
-    db.collection("users").find({ age: 32 }).count((error, count) => {
-        console.log(count);
-    });
-
-    db.collection("tasks").findOne({ _id: new ObjectID("5f817be442764f3ab41a83ad") }, (error, task) => {
-        if (error) {
-            return console.log("Unable to fetch the task...");
-        }
-        console.log(task);
-    });
-
-    db.collection("tasks").find({ completed: false }).toArray((error, tasks) => {
-        console.log(tasks);
+    ).then((result) => {
+        console.log(result.modifiedCount);
+    }).catch((error) => {
+        console.log(error);
     });
 });
 
