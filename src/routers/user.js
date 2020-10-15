@@ -1,6 +1,8 @@
 const express = require("express");
-const router = new express.Router();
 const User = require("../models/user");
+const auth = require("../middleware/auth");
+const router = new express.Router();
+
 
 router.post("/users", async (req, res) => {
     // We get the data from an http request through postman.
@@ -26,15 +28,9 @@ router.post("/users/login", async (req, res) => {
     }
 });
 
-router.get("/users", async (req, res) => {
-
-    try {
-        const users = await User.find({});
-        res.send(users);
-        
-    } catch (error) {
-        res.status(500).send();
-    }
+// The second argument is the middleware function
+router.get("/users/me", auth, async (req, res) => {
+    res.send(req.user);
 });
 
 // We use route parameter
