@@ -17,9 +17,6 @@ router.post("/tasks", auth, async (req, res) => {
     }
 });
 
-// GET /tasks?completed=true or false (filtering)
-// GET /tasks?limit&skip=20(limit: number of results we're getting back, skip: skipping the first and second page and go to the third) (pagination)
-// GET /tasks?sortBy=createdAt:desc or asc (sorting)
 router.get("/tasks", auth, async (req, res) => {
     const match = {};
     const sort = {};
@@ -41,10 +38,6 @@ router.get("/tasks", auth, async (req, res) => {
                 limit: parseInt(req.query.limit),
                 skip: parseInt(req.query.skip),
                 sort
-                // sort: {
-                //     // createdAt: -1 // 1 for asc
-                //     // completed: -1 // true first 1 for false first
-                // }
             }
         }).execPopulate();
         res.send(req.user.tasks);  
