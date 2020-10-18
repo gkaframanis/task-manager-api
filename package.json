@@ -10,6 +10,7 @@
   "author": "Gregory Kaframanis",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.3.0",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
