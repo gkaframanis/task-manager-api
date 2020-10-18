@@ -68,8 +68,10 @@ userSchema.methods.toJSON = function () {
     const user = this;
     const userObject = user.toObject();
 
+    // What not to get when we read the user profile.
     delete userObject.password;
     delete userObject.tokens;
+    delete userObject.avatar;
 
     return userObject;
 };
